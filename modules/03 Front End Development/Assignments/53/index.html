@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>var count = 3;</script>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid darkblue;
+        }
+
+        #sidemenu {
+            float: left;
+        }
+    </style>
+</head>
+
+<body style="background-color:darkseagreen">
+    <div id="doc">
+        <h1 style="width: 100%;" id="top">Our Research</h1>
+        <form id="sidemenu">
+            <table>
+                <tr>
+                    <td>Select Student:</td>
+                    <td>
+                        <select id="name">
+                            <option value="volvo">Volvo</option>
+                            <option value="saab">Saab</option>
+                            <option value="mercedes">Mercedes</option>
+                            <option value="audi">Audi</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Select Subject:</td>
+                    <td>
+                        <select id="subject">
+                            <option value="volvo">Volvo</option>
+                            <option value="saab">Saab</option>
+                            <option value="mercedes">Mercedes</option>
+                            <option value="audi">Audi</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="Submit" onclick="addRow()">
+        </form>
+        <div style="margin-left: 5px auto;margin-right: auto;">
+            <table style="width: 700px;  border: 5px solid;" id="displayTable">
+                <tr>
+                    <th>Student Name</th>
+                    <th>Subject</th>
+                </tr>
+                <tr id="1">
+                    <td>Jill</td>
+                    <td>Smith</td>
+                </tr>
+                <tr id="2">
+                    <td>Eve</td>
+                    <td>Jackson</td>
+                </tr>
+                <tr id="3">
+                    <td>John</td>
+                    <td>Doe</td>
+                </tr>
+            </table>
+            <button type="button" onclick="randomChoose()" style="margin-left: 20%;">Pick One</button>
+        </div>
+
+        <a href="#top" style="position: fixed;bottom: 0;">Back to top</a>
+    </div>
+
+    <script>
+        function addRow() {
+            count++;
+            var e = document.getElementById("name");
+            var studentName = e.options[e.selectedIndex].value;
+            var f = document.getElementById("subject");
+            var subjectName = f.options[f.selectedIndex].value;
+            var table = document.getElementById("displayTable");
+            var newRow = document.createElement("tr");
+            var newName = document.createElement("td");
+            var newSubject = document.createElement("td");
+            newName.innerText = studentName;
+            newSubject.innerText = subjectName;
+            newRow.appendChild(newName);
+            newRow.appendChild(newSubject);
+            newRow.setAttribute("id", count);
+            table.appendChild(newRow);
+
+
+            event.preventDefault();
+        }
+        function randomChoose() {
+            document.getElementById("doc").style.opacity = 0.25;
+            var table = document.getElementById("displayTable");
+            var randomNum = getRandomInt(table.rows.length);
+            var output = document.createElement("div");
+            output.innerText = table.rows.item(randomNum).cells[0].innerText;
+            output.innerText +=" " + table.rows.item(randomNum).cells[1].innerText;
+            output.style.marginLeft = "auto";
+            output.style.marginRight = "auto";
+            output.style.width = "100px";
+            output.style.background = "lightsalmon";
+            document.body.appendChild(output);
+            output.innerHTML +=" <span id='close'  onclick='this.parentNode.parentNode.removeChild(this.parentNode); changeOpacity(); return false;' style='color: red'>x</span>";
+
+            
+        }
+
+        function changeOpacity(){
+            document.getElementById("doc").style.opacity = 1;
+        }
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * Math.floor(max));
+        }
+    </script>
+</body>
+
+</html>
